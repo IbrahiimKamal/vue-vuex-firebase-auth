@@ -9,7 +9,7 @@
           nulla et! Perferendis autem deleniti quo eum corrupti reiciendis
           voluptatem ab ducimus?
         </p>
-        <div class="icons">
+        <div class="icons" v-if="user">
           <span>upvote or downvote this article: </span>
           <span class="material-icons">thumb_up</span>
           <span class="material-icons">thumb_down</span>
@@ -20,9 +20,8 @@
 </template>
 
 <script>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useStore } from 'vuex';
-
 export default {
   setup() {
     const blogs = ref([
@@ -30,14 +29,10 @@ export default {
       { title: '...Then I Took an Arrow in the Knee', id: 2 },
       { title: 'Mario vs Luigi, Ultimate Showdown', id: 3 },
     ]);
-
     const store = useStore();
-
-    console.log(store.state.user);
-    store.commit('setUser', 'Hima');
-
     return {
       blogs,
+      user: computed(() => store.state.user),
     };
   },
 };
