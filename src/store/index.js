@@ -2,6 +2,7 @@ import { createStore } from 'vuex';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from 'firebase/auth';
 
 // firebase auth
@@ -40,6 +41,14 @@ const store = createStore({
       } else {
         throw new Error('could not complete login');
       }
+    },
+
+    async logout({ commit }) {
+      console.log('logout');
+
+      await signOut(auth);
+      commit('setUser', null);
+      console.log('logout', this.state.user);
     },
   },
 });
